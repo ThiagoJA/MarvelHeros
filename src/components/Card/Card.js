@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import _get from 'lodash/get';
 import saveLocalStorage from '../../helpers/SaveLocalStorage';
 import darkFilledHeart from '../../icons/hearts/dark_filled_heart.svg';
 import clearHeart from '../../icons/hearts/clear_heart.svg';
@@ -57,23 +56,22 @@ const checkFavorite = (setCurrentFavorite, favorites, id) => {
     ~favorites.indexOf(id) ? setCurrentFavorite(true) : setCurrentFavorite(false);
 };
 
-const checkFavoriteStorage = (setCurrentFavorite, heroId) => {
+const checkFavoriteStorage = (setCurrentFavorite, id) => {
     if (!localStorage.getItem('favorites')) {
         localStorage.setItem('favorites', JSON.stringify([]));
     }
     if (localStorage.getItem('favorites')) {
-        let favorites = JSON.parse(localStorage.getItem('favorites'));
-        checkFavorite(setCurrentFavorite, favorites, heroId);
+        const favorites = JSON.parse(localStorage.getItem('favorites'));
+        checkFavorite(setCurrentFavorite, favorites, id);
     }
 }
 
 const Card = ({ heroData }) => {
     const [currentFavorite, setCurrentFavorite] = useState(false);
-    const heroId = _get(heroData, 'id', 0);
     const heroImage = `${heroData.thumbnail.path}.${heroData.thumbnail.extension}`
     useEffect(() => {
-        checkFavoriteStorage(setCurrentFavorite, heroId)
-    }, [currentFavorite]);
+        checkFavoriteStorage(setCurrentFavorite, heroData.id)
+    }, [currentFavorite, heroData.id]);
 
 
     return (
@@ -82,7 +80,7 @@ const Card = ({ heroData }) => {
             <hr />
             <div>
                 <span>{heroData.name}</span>
-                <img src={currentFavorite ? darkFilledHeart : clearHeart} onClick={() => saveLocalStorage(heroId, setCurrentFavorite, checkFavorite)} aria-hidden tabIndex="0" alt="Favorite" />
+                <img src={currentFavorite ? darkFilledHeart : clearHeart} onClick={() => saveLocalStorage(heroData.id, setCurrentFavorite, checkFavorite)} aria-hidden tabIndex="0" alt="Favorite" />
             </div>
         </SingleCard>
     )

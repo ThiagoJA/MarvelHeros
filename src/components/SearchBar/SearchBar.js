@@ -12,7 +12,7 @@ const Container = styled.div`
     padding: 0px 40px;
   }
   @media (min-width: 1366px) {
-    padding: 0px 10%;
+    padding: 0px 20%;
   }
   img {
     position: relative;
@@ -40,7 +40,7 @@ const SearchBar = () => {
   return (
     <Container>
       <img src={magnifyingGlass} alt="Search" />
-      <input type="text" placeholder="Procure por heróis" placeholderTextColor="red" tabIndex="0" />
+      <input type="text" placeholder="Procure por heróis" tabIndex="0" />
     </Container>
   )
 };
