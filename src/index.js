@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './Home';
+import Home from './screens/Home';
+import Hero from './screens/Hero';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './style.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Home />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" exact={true} component={Home} />
+      <Route path="/hero" component={Hero} />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

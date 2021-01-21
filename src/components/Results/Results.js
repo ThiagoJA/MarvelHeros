@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import _get from 'lodash/get';
 import _map from 'lodash/map';
 import styled from 'styled-components';
-import MarvelServices from '../../service/MarvelServices';
+import { GetHeroList } from '../../service/MarvelServices';
 import Card from '../Card/Card';
 import FilterBar from '../FilterBar/FilterBar';
 import SearchBar from '../SearchBar/SearchBar';
@@ -27,12 +27,14 @@ const HeroContainer = styled.div`
 
 const Results = () => {
     const [heros, setHeros] = useState([]);
+    const [pageHeros, setPageHeros] = useState([]);
     const [filterType, setFilterType] = useState(false);
     const [searchName, setSearchName] = useState('');
     useEffect(() => {
-        MarvelServices(searchName).then((res) => {
+        GetHeroList(searchName).then((res) => {
             const allHeros = _get(res, 'data.data.results', {});
             setHeros(allHeros);
+            setPageHeros(allHeros);
         })
     }, [searchName]);
 
@@ -45,10 +47,7 @@ const Results = () => {
             const filteredHeros = favoriteHeros.filter((hero) => hero);
             setHeros(filteredHeros);
         } else {
-            MarvelServices().then((res) => {
-                const allHeros = _get(res, 'data.data.results', {});
-                setHeros(allHeros);
-            })
+            setHeros(pageHeros);
         }
     }, [filterType]);
     

@@ -40,7 +40,7 @@ const SearchBar = ({ setSearchName }) => {
   const [searchText, setSearchText] = useState('');
   return (
     <Container>
-      <img src={magnifyingGlass} alt="Search" />
+      <img src={magnifyingGlass} alt="Search" onClick={() => setSearchName(searchText)} />
       <input type="text" placeholder="Procure por heróis" tabIndex="0" onChange={(e) => setSearchText(e.target.value)} onKeyDown={(e) => { if(e.keyCode === 13) setSearchName(searchText)}} />
     </Container>
   )

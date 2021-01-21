@@ -3,6 +3,7 @@ import saveLocalStorage from '../../helpers/SaveLocalStorage';
 import darkFilledHeart from '../../icons/hearts/dark_filled_heart.svg';
 import clearHeart from '../../icons/hearts/clear_heart.svg';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const SingleCard = styled.div`
    width: 90%;
@@ -30,19 +31,23 @@ const SingleCard = styled.div`
        }
    }
    img {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+   a {
+       margin-bottom: -4px;
+    img {
         width: 100%;
         height: 250px;
         cursor: pointer;
-        &:last-child {
-            width: 20px;
-            height: 20px;
-        }
         @media (min-width: 550px) and (max-width: 767px){
             height: 380px;
         }
         @media (min-width: 1650px){
             height: 300px;
         }
+   }
    }
    hr {
         height: 4px;
@@ -73,10 +78,11 @@ const Card = ({ heroData }) => {
         checkFavoriteStorage(setCurrentFavorite, heroData.id)
     }, [currentFavorite, heroData.id]);
 
-
     return (
         <SingleCard>
-            <img src={heroImage} alt={heroData.name}/>
+            <Link to="/hero">
+                <img src={heroImage} alt={heroData.name} onClick={() => localStorage.setItem('selectedHeroId', JSON.stringify(heroData.id))}/>
+            </Link>
             <hr />
             <div>
                 <span>{heroData.name}</span>
