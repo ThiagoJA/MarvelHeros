@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Logo from '../src/components/Logo/Logo';
-import SearchBar from '../src/components/SearchBar/SearchBar';
 import Results from '../src/components/Results/Results';
 
 const PageHeader = styled.header`
@@ -49,9 +48,6 @@ function Home() {
             <p>Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!</p>
           </div>
       </PageHeader>
-      <section>
-        <SearchBar />
-      </section>
       <section>
         <Results />
       </section>

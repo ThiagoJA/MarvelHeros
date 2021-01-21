@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import MarvelServices from '../../service/MarvelServices';
 import Card from '../Card/Card';
 import FilterBar from '../FilterBar/FilterBar';
+import SearchBar from '../SearchBar/SearchBar';
 
 const Container = styled.div`
     display: flex;
@@ -27,13 +28,13 @@ const HeroContainer = styled.div`
 const Results = () => {
     const [heros, setHeros] = useState([]);
     const [filterType, setFilterType] = useState(false);
-
+    const [searchName, setSearchName] = useState('');
     useEffect(() => {
-        MarvelServices().then((res) => {
+        MarvelServices(searchName).then((res) => {
             const allHeros = _get(res, 'data.data.results', {});
             setHeros(allHeros);
         })
-    }, []);
+    }, [searchName]);
 
     useEffect(() => {
         if (filterType) {
@@ -43,7 +44,6 @@ const Results = () => {
             })
             const filteredHeros = favoriteHeros.filter((hero) => hero);
             setHeros(filteredHeros);
-            console.log(filteredHeros);
         } else {
             MarvelServices().then((res) => {
                 const allHeros = _get(res, 'data.data.results', {});
@@ -54,6 +54,7 @@ const Results = () => {
     
     return (
         <Container>
+            <SearchBar setSearchName={setSearchName} />
             <FilterBar
                 herosQuantity={heros.length}
                 setFilterType={setFilterType}

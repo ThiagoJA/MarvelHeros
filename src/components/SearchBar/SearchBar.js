@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import magnifyingGlass from '../../icons/magnifying_glass.svg';
 
@@ -36,11 +36,12 @@ const Container = styled.div`
   }
 `
 
-const SearchBar = () => {
+const SearchBar = ({ setSearchName }) => {
+  const [searchText, setSearchText] = useState('');
   return (
     <Container>
       <img src={magnifyingGlass} alt="Search" />
-      <input type="text" placeholder="Procure por heróis" tabIndex="0" />
+      <input type="text" placeholder="Procure por heróis" tabIndex="0" onChange={(e) => setSearchText(e.target.value)} onKeyDown={(e) => { if(e.keyCode === 13) setSearchName(searchText)}} />
     </Container>
   )
 };
